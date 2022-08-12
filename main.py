@@ -17,7 +17,6 @@ def main():
 
     gcreds_filename = ''
     print(os.environ)
-    print(secrets)
 
     if "GOOGLE_CREDS" in os.environ:
         gcreds_filename = os.environ["GOOGLE_CREDS"]
