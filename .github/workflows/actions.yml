@@ -2,7 +2,7 @@ name: run main.py
 
 on:
   schedule:
-    - cron: '*/10 * * * *'
+    - cron: '*/5 * * * *'
 
 jobs:
   build:
@@ -23,6 +23,7 @@ jobs:
           pip install -r requirements.txt
           echo ${{ secrets.TEST }}
           echo ${{ secrets.EMAIL_USER }}
+          echo ${{ secrets.NEPOSTOJI }}
 
       - name: execute py script # run main.py
         run: python main.py
