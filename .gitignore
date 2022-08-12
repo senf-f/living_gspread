@@ -162,7 +162,7 @@ cython_debug/
 
 # My specific additions
 creds.py
-living_gspread
+creds-google.json
 
 # User-specific stuff
 .idea/**/workspace.xml
@@ -193,6 +193,5 @@ living_gspread
 /working.py
 .idea/
 
-creds.py
-creds-google.json
+
 
