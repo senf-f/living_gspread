@@ -1,3 +1,4 @@
+import os
 from datetime import date
 from time import perf_counter
 import requests
@@ -14,7 +15,12 @@ def main():
                 "Trogir-Croatia", "Sibenik-Croatia", "Kaštela-Croatia", "Omis-Croatia"]
     currency = "EUR"
 
-    gc = gspread.service_account(filename='creds-google.json')
+    gcreds_filename = 'creds-google.json'
+
+    if "GOOGLE_CREDS" in os.environ:
+        gcreds_filename = os.environ["GOOGLE_CREDS"]
+
+    gc = gspread.service_account(filename=gcreds_filename)
 
     for count, grad in enumerate(gradovi):
 
