@@ -16,6 +16,7 @@ def main():
     currency = "EUR"
 
     gcreds_filename = ''
+    print(os.environ)
 
     if "GOOGLE_CREDS" in os.environ:
         gcreds_filename = os.environ["GOOGLE_CREDS"]
