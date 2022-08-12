@@ -15,10 +15,12 @@ def main():
                 "Trogir-Croatia", "Sibenik-Croatia", "Kaštela-Croatia", "Omis-Croatia"]
     currency = "EUR"
 
-    gcreds_filename = 'creds-google.json'
+    gcreds_filename = ''
 
     if "GOOGLE_CREDS" in os.environ:
         gcreds_filename = os.environ["GOOGLE_CREDS"]
+    else:
+        gcreds_filename = 'creds-google.json'
 
     gc = gspread.service_account(filename=gcreds_filename)
 
