@@ -27,10 +27,11 @@ jobs:
           echo "Log level: $LEVEL"
           echo "Tags: $TAGS"
           echo "Environment: $ENVIRONMENT"
-          echo $ {{ secrets.MATE }}
+          echo ${{ secrets.MATE }}
           echo ${{ secrets.TEST }}
           echo ${{ secrets.EMAIL_USER }}
           echo ${{ secrets.NEPOSTOJI }}
+          echo ${{ secrets.GOOGLE_CREDS }}
           echo "Hello"
         env:
           LEVEL: ${{ inputs.logLevel }}
