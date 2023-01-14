@@ -16,7 +16,6 @@ def main():
     currency = "EUR"
 
     gcreds_filename = ''
-    print(os.environ)
 
     if "GOOGLE_CREDS" in os.environ:
         gcreds_filename = os.environ["GOOGLE_CREDS"]
@@ -31,7 +30,7 @@ def main():
         worksheet = sh.worksheet(grad)
         response = requests.get(base_url_cost + grad + f"?displayCurrency={currency}")
         soup = BeautifulSoup(response.text, 'html.parser')
-        vrijednosti = soup.find_all("td", class_="priceValue")
+        vrijednosti = soup.find_all("td", {"class": "priceValue"})
         cost_of_living = {}
 
         for vrijednost in vrijednosti:
@@ -46,4 +45,5 @@ if __name__ == "__main__":
     try:
         main()
     except Exception as e:
-        email_sender.send_email(f'Living gspread {date.today()}', 'senfsend@outlook.com', 'mate.mrse@gmail.com', f"{e}")
+        print(e)
+        # email_sender.send_email(f'Living gspread {date.today()}', 'senfsend@outlook.com', 'mate.mrse@gmail.com', f"{e}")
