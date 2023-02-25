@@ -31,6 +31,8 @@ jobs:
       run: echo "Hello ${{ github.event.inputs.name }}"
     - name: Check env variables
       run: echo ${{ secrets.EMAIL_USER }}
+      env: 
+        EMAIL_USER: ${{ secrets.EMAIL_USER }}
     - name: Show environment
       run: | 
         echo "evo ide.... :"
