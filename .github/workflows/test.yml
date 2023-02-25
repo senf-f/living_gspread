@@ -22,7 +22,7 @@ jobs:
   greet:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-    environment: prod
+    environment: test
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -30,9 +30,11 @@ jobs:
     - name: Send greeting
       run: echo "Hello ${{ github.event.inputs.name }}"
     - name: Check env variables
-      run: echo ${{ secrets.EMAIL_USER }}
       env: 
-        EMAIL_USER: ${{ secrets.EMAIL_USER }}
+        TAJNA: ${{ secrets.TEST_SECRET_VAT }}
+      run: | 
+        echo ${{ secrets.TEST_SECRET_VAT }}
+        echo KEY: '${TAJNA}'
     - name: Show environment
       run: | 
         echo "evo ide.... :"
