@@ -30,7 +30,7 @@ jobs:
     - name: Send greeting
       run: echo "Hello ${{ github.event.inputs.name }}"
     - name: Check env variables
-      run: echo ${{ secrets.TELEGRAM_CHAT_ID }}
+      run: echo ${{ secrets.EMAIL_USER }}
     - name: Show environment
       run: | 
         echo "evo ide.... :"
