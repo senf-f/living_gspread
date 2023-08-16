@@ -1,11 +1,8 @@
-import os
 from datetime import date
 from time import perf_counter
 import requests
 from bs4 import BeautifulSoup
 import gspread
-
-import email_sender
 
 
 def main():
@@ -15,12 +12,7 @@ def main():
                 "Trogir-Croatia", "Sibenik-Croatia", "Kaštela-Croatia", "Omis-Croatia"]
     currency = "EUR"
 
-    gcreds_filename = ''
-
-    if "GOOGLE_CREDS" in os.environ:
-        gcreds_filename = os.environ["GOOGLE_CREDS"]
-    else:
-        gcreds_filename = 'creds-google.json'
+    gcreds_filename = 'creds-google.json'
 
     gc = gspread.service_account(filename=gcreds_filename)
 
@@ -38,7 +30,21 @@ def main():
 
         worksheet.append_row([f"{date.today()}"]+list(cost_of_living.values()))
 
-    print(f"Vrijeme izvršavanja: {perf_counter() - start} sekundi.")
+    print(f"[Cost of life] performance: {perf_counter() - start} s. {date.today()}")
+
+
+def send_to_telegram(content):
+
+    api_token = creds.TELEGRAM_API_TOKEN_TECH
+    chat_id = creds.TELEGRAM_CHAT_ID
+
+    api_url = f"https://api.telegram.org/bot{api_token}/sendMessage"
+
+    try:
+        response = requests.post(api_url, json={'chat_id': chat_id, 'text': content})
+        print(response.text)
+    except Exception as ex:
+        print(ex)
 
 
 if __name__ == "__main__":
@@ -46,4 +52,5 @@ if __name__ == "__main__":
         main()
     except Exception as e:
         print(e)
-        # email_sender.send_email(f'Living gspread {date.today()}', 'senfsend@outlook.com', 'mate.mrse@gmail.com', f"{e}")
+        send_to_telegram(f"Greska na Cost of life scraperu:\n\n{e}")
+
