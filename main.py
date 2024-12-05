@@ -20,8 +20,14 @@ def main():
 
         sh = gc.open('cost_of_living')
         worksheet = sh.worksheet(grad)
-        response = requests.get(base_url_cost + grad + f"?displayCurrency={currency}")
-        soup = BeautifulSoup(response.text, 'html.parser')
+        try:
+            response = requests.get(base_url_cost + grad + f"?displayCurrency={currency}", timeout=10)
+            response.raise_for_status()
+            soup = BeautifulSoup(response.text, 'html.parser')
+        except requests.exceptions.RequestException as e:
+            print(f"[Cost of life] Request error for {grad}: {e}")
+            send_to_telegram(f"[Cost of life] Request error for {grad}: {e}")
+            continue
         vrijednosti = soup.find_all("td", {"class": "priceValue"})
         cost_of_living = {}
 
@@ -52,5 +58,5 @@ if __name__ == "__main__":
         main()
     except Exception as e:
         print(e)
-        send_to_telegram(f"Greska na Cost of life scraperu:\n\n{e}")
+        send_to_telegram(f"[Cost of life] Greska na Cost of life scraperu:\n\n{e}")
 
